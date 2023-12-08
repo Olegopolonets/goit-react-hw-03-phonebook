@@ -7,15 +7,26 @@ import { ContactList } from './ContactList/ContactList';
 
 export class App extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermion', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie', number: '227-91-26' },
-    ],
+    contacts: [],
 
     filter: '',
   };
+
+  componentDidMount() {
+    const contacts = JSON.parse(window.localStorage.getItem('contacts'));
+    if (contacts?.length) {
+      this.setState({ contacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      window.localStorage.setItem(
+        'contacts',
+        JSON.stringify(this.state.contacts)
+      );
+    }
+  }
 
   addNewContact = contactProps => {
     this.setState(prev => ({
