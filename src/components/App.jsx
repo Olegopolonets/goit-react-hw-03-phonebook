@@ -11,7 +11,7 @@ export class App extends Component {
 
     filter: '',
   };
-
+  //LS
   componentDidMount() {
     const contacts = JSON.parse(window.localStorage.getItem('contacts'));
     if (contacts?.length) {
@@ -27,7 +27,7 @@ export class App extends Component {
       );
     }
   }
-
+  //LS
   addNewContact = contactProps => {
     this.setState(prev => ({
       contacts: [...prev.contacts, { id: nanoid(), ...contactProps }],
